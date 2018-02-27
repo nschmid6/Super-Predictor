@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.button {
+  background-color: #003DA5;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  top:35px;
+    font-family: "Roboto";
+}
+
+.main-content {
+    margin: auto;
+    text-align: center;
+    font-family: "Roboto";
+}
+
+.logo {
+  padding-bottom:10px;
+}
+
+.btn-area {
+    padding-top: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+hr {
+  border-width: 3px;
+}
+

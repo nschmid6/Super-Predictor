@@ -50,7 +50,7 @@ class StartForecast extends Component {
                     <form onSubmit={this.handleSubmit}>
                             (This will change but is a basic example)<br />
                             Enter your current weather conditions below!<br />
-                            Banner ID:
+                            Weather Data:
                                 <input name="banner" type="text" value={this.state.banner} onChange={this.handleInputChange} className="form-control" required /><br />
                         <input type="submit" value="Submit" className="btn btn-primary"/>
                     </form>

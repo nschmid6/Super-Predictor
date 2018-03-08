@@ -19,13 +19,13 @@ class StartForecast extends Component {
     validateForm() { //this is leftover from capstone but may be useful for form entry
         let bannerPattern = new RegExp("00[0-9]{7}");
 
-        if(!bannerPattern.test(this.state.banner)){
-            alert("Please enter a valid banner ID.");
-            return false;
-        }
-        else{
-            return true;
-        }
+    //    if(!bannerPattern.test(this.state.banner)){
+    //        alert("Please enter a valid banner ID.");
+    //        return false;
+    //    }
+    //    else{
+    //        return true;
+    //    }
     }
 
     handleInputChange(event) {

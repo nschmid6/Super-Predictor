@@ -13,13 +13,13 @@ class IndexItem extends Component {
     render() {
        return(
            <div className="main-content">
-               (Insert logo here)
+               <img src="/img/logo.png" alt="Super Predictor" height="200px" className="logo" />
                <div className="intro">
                    <h2>Super Predictor</h2><hr />
                    Welcome to Super Predictor! Click below to get started.
                </div><hr />
                <div className="btn-area">
-                    <Link to={"/start"} className="button" style={{color: 'white', textDecoration:'none'}}>Get Started!</Link>
+                    <Link to={"/login"} className="button" style={{color: 'white', textDecoration:'none'}}>Get Started!</Link>
                </div>
                <br />
             </div>

@@ -17,15 +17,7 @@ class StartForecast extends Component {
     }
 
     validateForm() { //this is leftover from capstone but may be useful for form entry
-        let bannerPattern = new RegExp("00[0-9]{7}");
-
-        if(!bannerPattern.test(this.state.banner)){
-            alert("Please enter a valid banner ID.");
-            return false;
-        }
-        else{
-            return true;
-        }
+        return true;
     }
 
     handleInputChange(event) {
@@ -40,22 +32,26 @@ class StartForecast extends Component {
         event.preventDefault();
         if(this.validateForm()) {
             this.newForecast.sendData(this.state);
-            this.props.history.push('/index');
+            this.props.history.push('/results');
         }
     }
 
     render(){
         return(
                 <div className="main-content" padding="5">
+                    <img src="/img/logo.png" alt="Super Predictor" height="200px" className="logo" />
                     <form onSubmit={this.handleSubmit}>
-                            (This will change but is a basic example)<br />
-                            Enter your current weather conditions below!<br />
-                            Banner ID:
-                                <input name="banner" type="text" value={this.state.banner} onChange={this.handleInputChange} className="form-control" required /><br />
-                        <input type="submit" value="Submit" className="btn btn-primary"/>
+                        Enter your current weather conditions below!<br /><br />
+                        <h3>Temperature:</h3><br />
+                        <input name="temperature" type="text" value={this.state.temperature} onChange={this.handleInputChange} required /><br />
+                        <h3>Wind Speed:</h3><br />
+                        <input name="wind" type="text" value={this.state.wind} onChange={this.handleInputChange} required /><br />
+                        <h3>Air Pressure:</h3><br />
+                        <input name="pressure" type="text" value={this.state.pressure} onChange={this.handleInputChange} required /><br />
+                        <br /><input type="submit" value="Submit" className="button"/>
                     </form>
                     <br/>
-					<Link to={"/index"} className="btn btn-primary">Back to Home</Link>
+					<Link to={"/index"} className="button" style={{color: 'white', textDecoration:'none'}}>Back to Home</Link>
 				</div>
         );
     }

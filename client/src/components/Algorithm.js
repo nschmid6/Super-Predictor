@@ -33,7 +33,7 @@ const day5 = new weatherData(48, 7, 30);
 const day6 = new weatherData(55, 10, 25);
 const day7 = new weatherData(50, 15, 30);
 
-var week = [day1, day2, day3, day4, day5, day6, day7];
+let week = [day1, day2, day3, day4, day5, day6, day7];
 
 function temperatureChange(yesterday, today) {
         return today.temperature - yesterday.temperature;
@@ -46,23 +46,24 @@ function pressureChange(yesterday, today) {
 }
 
 function forecast(weatherData) {
-    var len = week.length;
-    var yesterday = len - 2;
-    var today = len - 1;
-    var yesterdayWeather = week[yesterday];
-    var todayWeather = weatherData;
-    var deltaT = temperatureChange(yesterdayWeather, todayWeather);
-    var deltaW = windChange(yesterdayWeather, todayWeather);
-    var deltaP = pressureChange(yesterdayWeather, todayWeather);
-    var avgDeltaT = [];
-    var avgDeltaW = [];
-    var avgDeltaP = [];
-    var n;
+    let len = week.length;
+    let yesterday = len - 2;
+    let today = len - 1;
+    let yesterdayWeather = week[yesterday];
+    let todayWeather = weatherData;
+    let deltaT = temperatureChange(yesterdayWeather, todayWeather);
+    let deltaW = windChange(yesterdayWeather, todayWeather);
+    let deltaP = pressureChange(yesterdayWeather, todayWeather);
+    let avgDeltaT = [];
+    let avgDeltaW = [];
+    let avgDeltaP = [];
+    let n;
+
     for (n=0; n<len; n++) {
         if (n !== 0) {
-            if (temperatureChange(week[n-1], week[n]) == deltaT) {
-                if (windChange(week[n-1], week[n]) == deltaW) {
-                    if (pressureChange(week[n-1], week[n]) == deltaW) {
+            if (temperatureChange(week[n-1], week[n]) === deltaT) {
+                if (windChange(week[n-1], week[n]) === deltaW) {
+                    if (pressureChange(week[n-1], week[n]) === deltaW) {
                         avgDeltaT.push(temperatureChange(week[n], week[n+1]));
                         avgDeltaW.push(windChange(week[n], week[n+1]));
                         avgDeltaP.push(pressureChange(week[n], week[n+1]));
@@ -71,21 +72,21 @@ function forecast(weatherData) {
             }
         }
     }
-    var totalT = 0;
-    for (var i=0; i<avgDeltaT.length; i++) {
+    let totalT = 0;
+    for (let i=0; i<avgDeltaT.length; i++) {
         totalT += avgDeltaT[i];
     }
-    var tomorrowTempChange = totalT / avgDeltaT.length;
-    var totalW = 0;
-    for (var j=0; j<avgDeltaW.length; j++) {
+    let tomorrowTempChange = totalT / avgDeltaT.length;
+    let totalW = 0;
+    for (let j=0; j<avgDeltaW.length; j++) {
         totalW += avgDeltaW[j];
     }
-    var tomorrowWindChange = totalW / avgDeltaW.length;
-    var totalP = 0;
-    for (var k=0; k<avgDeltaP.length; k++) {
+    let tomorrowWindChange = totalW / avgDeltaW.length;
+    let totalP = 0;
+    for (let k=0; k<avgDeltaP.length; k++) {
         totalP += avgDeltaP[k];
     }
-    var tomorrowPressureChange = totalP / avgDeltaP.length;
+    let tomorrowPressureChange = totalP / avgDeltaP.length;
     day8 = new weatherData(todayWeather.temperature + tomorrowTempChange, todayWeather.wind + tomorrowWindChange, todayWeather.pressure + tomorrowPressureChange);
     week.push(day8);
     return day8;

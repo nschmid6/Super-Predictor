@@ -40,3 +40,13 @@ hr {
   border-width: 3px;
 }
 
+.user-table {
+    margin:auto;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.user-table-cell{
+    padding: 2px;
+    border: 1px solid black;
+}

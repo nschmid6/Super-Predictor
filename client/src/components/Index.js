@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import ForecastService from './ForecastService';
-let config = require('../config');
 
 class IndexItem extends Component {
 

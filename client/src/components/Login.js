@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 class Login extends Component {
 
@@ -7,6 +8,7 @@ class Login extends Component {
         super(props);
         this.state = {};
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleInputChange(event) {
@@ -17,6 +19,14 @@ class Login extends Component {
         this.setState({[name]: value});
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+            axios.post('http://localhost:4500/login', {
+                username: this.state.username,
+                password: this.state.password
+            });
+    }
+
     render() {
         return(
             <div className="main-content">
@@ -24,13 +34,13 @@ class Login extends Component {
                 <div className="intro">
                     <h2>Super Predictor</h2><hr />
                     <h3>Login:</h3>
-                    <form>
-                        Email:<br />
-                        <input name="email" type="text" value={this.state.email} placeholder="Email" onChange={this.handleInputChange}  /><br />
+                    <form onSubmit={this.handleSubmit}>
+                        Username:<br />
+                        <input name="username" type="text" value={this.state.username} placeholder="Username" onChange={this.handleInputChange}  /><br />
                         Password:<br />
-                        <input name="password" type="password" pattern="\d*" value={this.state.password} placeholder="Password" onChange={this.handleInputChange}  />
+                        <input name="password" type="password" value={this.state.password} placeholder="Password" onChange={this.handleInputChange}  />
                         <br/><br />
-                        <Link to={"/start"} className="button" style={{color: 'white', textDecoration:'none'}}>Login</Link>
+                        <input type="submit" value="Submit" className="button"/>
                     </form>
                 </div>
             </div>

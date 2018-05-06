@@ -7,12 +7,21 @@ class AddUser extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {role: "Student"};
+        this.state = {role: "Teacher"};
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.validateForm = this.validateForm.bind(this);
         this.postData = this.postData.bind(this);
+        this.teacherDropdown = this.teacherDropdown.bind(this);
+        this.populateTeachers = this.populateTeachers.bind(this);
+    }
+
+    componentWillMount(){
+        axios.get('http://localhost:4500/getTeachers').then(res => {
+            console.log(res.data),
+            this.setState({allTeachers: res.data})
+        })
     }
 
     validateForm() {
@@ -40,7 +49,8 @@ class AddUser extends Component {
                 lname: this.state.lname,
                 role: this.state.role,
                 username: this.state.username,
-                password: this.state.password
+                password: this.state.password,
+                teacher: this.state.teacher
             }).then(this.props.history.push('/admin/' + this.props.match.params.username));
 
         }
@@ -61,6 +71,30 @@ class AddUser extends Component {
         );
     }
 
+    populateTeachers(){
+        if (this.state.allTeachers instanceof Array) {
+            return this.state.allTeachers.map(function (object, i) {
+                return(
+                    <option value = {object.username} key={i}>{object.fname} {object.lname}</option>
+                );
+            })
+        }
+    }
+
+    teacherDropdown(){
+        if(this.state.role === 'Student'){
+            return(
+                <div>
+                <h3>Teacher</h3><br/>
+                    <select name="teacher" value={this.state.teacher} onChange={this.handleInputChange} required>
+                        <option value=""></option>
+                        {this.populateTeachers()}
+                    </select>
+                </div>
+            )
+        }
+    }
+
     render(){
         return(
             <div className="main-content" padding="5">
@@ -73,10 +107,11 @@ class AddUser extends Component {
                     <input name="lname" type="text" value={this.state.lname} onChange={this.handleInputChange} required /><br />
                     <h3>Role</h3><br />
                     <select name="role" value={this.state.role} onChange={this.handleInputChange} required>
-                        <option value="Student">Student</option>
                         <option value="Teacher">Teacher</option>
+                        <option value="Student">Student</option>
                         <option value="Admin">Admin</option>
                     </select><br />
+                    {this.teacherDropdown()}
                     <h3>Username</h3><br />
                     <input name="username" type="text" value={this.state.username} onChange={this.handleInputChange} required /><br />
                     <h3>Password</h3><br />

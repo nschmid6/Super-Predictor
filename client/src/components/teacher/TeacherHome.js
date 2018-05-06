@@ -14,7 +14,7 @@ class TeacherHome extends Component {
     }
 
     componentWillMount(){
-        axios.get('http://localhost:4500/allStudents').then(res => this.setState({users: res.data}));
+        axios.get('http://localhost:4500/getStudents/' + this.props.match.params.username).then(res => this.setState({users: res.data}));
         axios.get('http://localhost:4500/getUser/' + this.props.match.params.username).then(res =>{
             this.setState({
                 fname: res.data[0].fname,
@@ -42,7 +42,7 @@ class TeacherHome extends Component {
                     <h2>Super Predictor</h2><hr />
                     <h3>Teacher Home</h3><br />
                     <h4>Welcome {this.state.fname} {this.state.lname}!</h4><br />
-                    <Link to={"/teacher/" + this.props.match.params.username + "/add-user"} className="button" style={{color: 'white', textDecoration:'none'}}>Add Student</Link>
+                    <Link to={"/teacher/" + this.props.match.params.username + "/add-student"} className="button" style={{color: 'white', textDecoration:'none'}}>Add Student</Link>
                     <br /><br />
                     <table className="user-table">
                         <thead>

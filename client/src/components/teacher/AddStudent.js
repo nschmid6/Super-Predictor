@@ -40,8 +40,9 @@ class AddStudent extends Component {
                 lname: this.state.lname,
                 role: this.state.role,
                 username: this.state.username,
-                password: this.state.password
-            }).then(this.props.history.push('/teacher' + this.props.match.params.username));
+                password: this.state.password,
+                teacher: this.props.match.params.username
+            }).then(this.props.history.push('/teacher/' + this.props.match.params.username));
 
         }
     }

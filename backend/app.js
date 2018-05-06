@@ -86,13 +86,13 @@ app.get("/allUsers", function(req,res){
     queryUser(query, res);
 });
 
-app.get("/allStudents", function(req,res){
-    let query = "SELECT * FROM users WHERE role = 'Student'";
+app.get("/getStudents/:teacher", function(req,res){
+    let query = "SELECT * FROM users WHERE role = 'Student' AND teacher = '" + req.params.teacher +"'";
     queryUser(query, res);
 });
 
 app.post("/newUser", function(req,res){
-    let query = "INSERT INTO users (`fname`, `lname`, `role`, `username`, `password`) VALUES ('"+ req.body.fname + "', '" + req.body.lname + "', '" + req.body.role + "', '" + req.body.username + "', '" + req.body.password +"')";
+    let query = "INSERT INTO users (`fname`, `lname`, `role`, `username`, `password`, `teacher`) VALUES ('"+ req.body.fname + "', '" + req.body.lname + "', '" + req.body.role + "', '" + req.body.username + "', '" + req.body.password + "', '" + req.body.teacher + "')";
     queryUser(query, res);
 });
 
@@ -104,6 +104,11 @@ app.get("/deleteUser/:username", function(req,res){
 app.get("/getUser/:username", function(req,res){
     let query = "SELECT * FROM users WHERE username = '" + req.params.username + "'";
     queryUser(query, res);
+});
+
+app.get("/getTeachers", function(req,res){
+   let query = "SELECT * FROM users WHERE role = 'Teacher'";
+   queryUser(query, res);
 });
 
 app.post("/addWeather", function (req,res) {

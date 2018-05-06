@@ -12,9 +12,10 @@ class AddStudent extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.validateForm = this.validateForm.bind(this);
+        this.postData = this.postData.bind(this);
     }
 
-    validateForm() { //this is leftover from capstone but may be useful for form entry
+    validateForm() {
         if(this.state.password !== this.state.confirmPassword) {
             alert("Passwords do not match.");
             return false;
@@ -32,9 +33,7 @@ class AddStudent extends Component {
         this.setState({[name]: value});
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-
+    postData(){
         if(this.validateForm()) {
             axios.post('http://localhost:4500/newUser', {
                 fname: this.state.fname,
@@ -42,9 +41,24 @@ class AddStudent extends Component {
                 role: this.state.role,
                 username: this.state.username,
                 password: this.state.password
-            }).then(this.props.history.push('/teacher'));
+            }).then(this.props.history.push('/teacher' + this.props.match.params.username));
 
         }
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+
+        axios.get('http://localhost:4500/getUser/' + this.state.username).then(res=>{
+                if(res.data.length >= 1){
+                    alert("Username already exists");
+                    return false;
+                }
+                else{
+                    this.postData();
+                }
+            }
+        );
     }
 
     render(){
@@ -66,7 +80,7 @@ class AddStudent extends Component {
                     <br /><input type="submit" value="Submit" className="button"/>
                 </form>
                 <br/>
-                <Link to={"/teacher"} className="button" style={{color: 'white', textDecoration:'none'}}>Back to Home</Link>
+                <Link to={"/teacher/" + this.props.match.params.username} className="button" style={{color: 'white', textDecoration:'none'}}>Back to Home</Link>
             </div>
         );
     }

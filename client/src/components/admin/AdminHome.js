@@ -12,8 +12,14 @@ class AdminHome extends Component {
         this.tableRow = this.tableRow.bind(this);
     }
 
-    componentDidMount(){
+    componentWillMount(){
         axios.get('http://localhost:4500/allUsers').then(res => this.setState({users: res.data}));
+        axios.get('http://localhost:4500/getUser/' + this.props.match.params.username).then(res =>{
+            this.setState({
+                fname: res.data[0].fname,
+                lname: res.data[0].lname
+            })
+        })
     }
 
 
@@ -35,7 +41,9 @@ class AdminHome extends Component {
                 <div className="intro">
                     <h2>Super Predictor</h2><hr />
                     <h3>Admin Console</h3><br />
-                    <Link to={"/admin/add-user"} className="button" style={{color: 'white', textDecoration:'none'}}>Add User</Link>
+                    <h4>Welcome {this.state.fname} {this.state.lname}!</h4><br />
+                    <Link to={"/admin/" + this.props.match.params.username + "/add-weather"} className="button" style={{color: 'white', textDecoration:'none'}}>Add Weather Data</Link><br /><br />
+                    <Link to={"/admin/" + this.props.match.params.username + "/add-user"} className="button" style={{color: 'white', textDecoration:'none'}}>Add User</Link>
                     <br /><br />
                     <table className="user-table">
                         <thead>
@@ -51,6 +59,8 @@ class AdminHome extends Component {
                             {this.tableRow()}
                         </tbody>
                     </table>
+                    <br />
+                    <Link to={"/login"} className="button" style={{color: 'white', textDecoration:'none'}}>Log Out</Link>
                 </div>
             </div>
         );

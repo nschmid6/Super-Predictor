@@ -41,8 +41,8 @@ function temperatureChange(yesterday, today) {
 function windChange(yesterday, today) {
         return today.wind - yesterday.wind;
 }
-function pressureChange(yesterday, today) {
-        return today.pressure - yesterday.pressure;
+function precipChange(yesterday, today) {
+        return today.precip - yesterday.precip;
 }
 
 function forecast(weatherData) {
@@ -53,7 +53,7 @@ function forecast(weatherData) {
     let todayWeather = weatherData;
     let deltaT = temperatureChange(yesterdayWeather, todayWeather);
     let deltaW = windChange(yesterdayWeather, todayWeather);
-    let deltaP = pressureChange(yesterdayWeather, todayWeather);
+    let deltaP = precipChange(yesterdayWeather, todayWeather);
     let avgDeltaT = [];
     let avgDeltaW = [];
     let avgDeltaP = [];
@@ -63,10 +63,10 @@ function forecast(weatherData) {
         if (n !== 0) {
             if (temperatureChange(week[n-1], week[n]) === deltaT) {
                 if (windChange(week[n-1], week[n]) === deltaW) {
-                    if (pressureChange(week[n-1], week[n]) === deltaW) {
+                    if (precipChange(week[n-1], week[n]) === deltaW) {
                         avgDeltaT.push(temperatureChange(week[n], week[n+1]));
                         avgDeltaW.push(windChange(week[n], week[n+1]));
-                        avgDeltaP.push(pressureChange(week[n], week[n+1]));
+                        avgDeltaP.push(precipChange(week[n], week[n+1]));
                     }
                 }
             }
@@ -86,8 +86,8 @@ function forecast(weatherData) {
     for (let k=0; k<avgDeltaP.length; k++) {
         totalP += avgDeltaP[k];
     }
-    let tomorrowPressureChange = totalP / avgDeltaP.length;
-    day8 = new weatherData(todayWeather.temperature + tomorrowTempChange, todayWeather.wind + tomorrowWindChange, todayWeather.pressure + tomorrowPressureChange);
+    let tomorrowPrecipChange = totalP / avgDeltaP.length;
+    day8 = new weatherData(todayWeather.temperature + tomorrowTempChange, todayWeather.wind + tomorrowWindChange, todayWeather.precip + tomorrowPrecipChange);
     week.push(day8);
     return day8;
 }

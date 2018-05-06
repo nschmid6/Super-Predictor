@@ -21,10 +21,17 @@ class Login extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-            axios.post('http://localhost:4500/login', {
-                username: this.state.username,
-                password: this.state.password
-            });
+        axios.post('http://localhost:4500/login', {
+            username: this.state.username,
+            password: this.state.password
+        }).then(res => {
+            if(res.data === '/student' || res.data === '/teacher' || res.data === '/admin'){
+                this.props.history.push(res.data + "/" + this.state.username);
+            }
+            else{
+                alert(res.data);
+            }
+        });
     }
 
     render() {
